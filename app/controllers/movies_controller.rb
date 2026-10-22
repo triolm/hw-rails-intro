@@ -8,7 +8,8 @@ class MoviesController < ApplicationController
     if params[:ratings]
       @ratings_to_show = params[:ratings].keys
     end
-    @movies = Movie.where(rating: @ratings_to_show)
+    @sort_by = params[:sort_by]
+    @movies = Movie.where(rating: @ratings_to_show).order(@sort_by)
   end
 
   # GET /movies/1 or /movies/1.json
