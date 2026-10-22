@@ -10,8 +10,18 @@
       <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
     </div>
   <% end %>
+  <div>
+      <label class="form-label me-2" for="sort_by">Sort by:</label>
+      <%= select_tag :sort_by,
+                    options_for_select([["Title", "title"],
+                                        ["Release Date", "release_date"]],
+                                        @sort_by),
+                    id:    "sort_by",
+                    class: "form-select d-inline w-auto" ,
+                    # was this what i was supposed to do
+                    onchange: 'this.form.submit();'%>
+  </div>
   <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
-  
 <% end %>
 
 <h1>Movies</h1>
