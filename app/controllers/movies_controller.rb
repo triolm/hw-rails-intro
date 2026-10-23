@@ -5,10 +5,18 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     @ratings_to_show = @all_ratings
-    if params[:ratings]
-      @ratings_to_show = params[:ratings].keys
+
+    if(not params[:ratings] and not params[:sort_by])
+      @sort_by = session[:sort_by]
+      @ratings_to_show = session[:ratings_to_show]
+    else 
+      @ratings_to_show = params[:ratings] ? params[:ratings].keys : @all_ratings
+      @sort_by = params[:sort_by]
+      session[:sort_by] = @sort_by
+      session[:ratings_to_show] = @ratings_to_show
     end
-    @sort_by = params[:sort_by]
+
+
     @movies = Movie.where(rating: @ratings_to_show).order(@sort_by)
   end
 
